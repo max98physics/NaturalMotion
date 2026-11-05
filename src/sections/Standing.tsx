@@ -107,7 +107,7 @@ export function Standing({ pressures, setPressures }: { pressures: Pressures; se
     if (s.trail.length > 4000) s.trail.splice(0, s.trail.length - 4000);
     if (s.failed) {
       setRunning(false);
-      setStatus({ text: `Left the valid range after ${s.t.toFixed(2)} s: one muscle is fully contracted or slack.`, kind: "fail" });
+      setStatus({ text: `Left the valid range after ${s.t.toFixed(2)} s.`, kind: "fail" });
     } else if (s.t > T_RUN) {
       setRunning(false);
       setStatus({ text: "Stayed in the valid range.", kind: "ok" });
@@ -128,8 +128,9 @@ export function Standing({ pressures, setPressures }: { pressures: Pressures; se
 
   return (
     <section id="standing">
-      <p className="kicker">2 · Standing</p>
-      <h2>Can the arm stand up?</h2>
+      <h2>
+        <span className="num">2</span>Stability
+      </h2>
       <div className="prose">
         <Placeholder
           points={[
@@ -160,14 +161,15 @@ export function Standing({ pressures, setPressures }: { pressures: Pressures; se
               <LegendKey kind="line" color={pal.axis} label="energy contours (b = 0)" />
               <LegendKey kind="line" color={pal.s1} label="trajectory" />
               <LegendKey color={pal.invalid} label="|θ| > θ_max" />
-              <span className="key">● stable · ○ unstable equilibrium</span>
+              <span className="key">● stable</span>
+              <span className="key">○ unstable</span>
             </div>
           </div>
           <div>
             <canvas ref={arm.ref} className="plot" role="img" aria-label="Arm following the trajectory" />
           </div>
         </div>
-        <p className="caption">Click anywhere in the phase portrait to release the arm from that state.</p>
+        <p className="caption">Click in the phase portrait to set the initial state.</p>
         <div className={`status ${status.kind}`}>{status.text}</div>
         <div className="readouts">
           <Readout name="equilibrium θ*" value={standing.theta === null ? "none in range" : `${fmt(standing.theta, 3)} rad`} />

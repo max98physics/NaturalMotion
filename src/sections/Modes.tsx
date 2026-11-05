@@ -141,8 +141,9 @@ export function Modes() {
 
   return (
     <section id="modes">
-      <p className="kicker">6 · Modes</p>
-      <h2>Two ways for a double arm to swing</h2>
+      <h2>
+        <span className="num">6</span>Nonlinear normal modes
+      </h2>
       <div className="prose">
         <Placeholder
           points={[
@@ -199,13 +200,13 @@ export function Modes() {
         </div>
         <div className="readouts">
           <Readout name="turning point (θ₁, θ₂)" value={point ? `(${fmt(point.a)}, ${fmt(point.b, 3)})` : "–"} />
-          <Readout name="ratio θ₂/θ₁ · linear" value={point ? `${fmt(point.b / point.a, 3)} (${fmt(lin[mode].ratio, 3)})` : "–"} />
-          <Readout name="period · linear" value={point ? `${fmt(point.period, 3)} s (${fmt(lin[mode].period, 3)} s)` : "–"} />
-          <Readout name="Ω_fast / Ω_slow, linear" value={fmt(lin.fast.omega / lin.slow.omega, 3)} />
+          <Readout name="ratio θ₂/θ₁ (linear)" value={point ? `${fmt(point.b / point.a, 3)} (${fmt(lin[mode].ratio, 3)})` : "–"} />
+          <Readout name="period (linear)" value={point ? `${fmt(point.period, 3)} s (${fmt(lin[mode].period, 3)} s)` : "–"} />
+          <Readout name="Ω_fast / Ω_slow (linear)" value={fmt(lin.fast.omega / lin.slow.omega, 3)} />
         </div>
         <p className="caption">
-          Each curve is one periodic orbit of the family, traced between its two turning points. With “linear guess” the arm starts on the straight
-          line instead and drifts off the mode.
+          Each curve is one periodic orbit, drawn between its two turning points. “Linear guess” starts on the straight line of the linear
+          mode instead.
         </p>
       </div>
     </section>

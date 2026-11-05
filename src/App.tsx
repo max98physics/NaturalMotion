@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ThemeToggle } from "./components/ui";
 import type { Pressures } from "./physics/arm";
 import { EnergyPumping } from "./sections/EnergyPumping";
 import { EquilibriumMap } from "./sections/EquilibriumMap";
@@ -14,6 +15,9 @@ export function App() {
   const [pressures, setPressures] = useState<Pressures>({ p1: 3, p2: 2 });
   return (
     <div className="page">
+      <div className="topbar">
+        <ThemeToggle />
+      </div>
       <Hero />
       <main>
         <Model pressures={pressures} setPressures={setPressures} />
@@ -25,7 +29,7 @@ export function App() {
         <Outlook />
       </main>
       <footer>
-        All figures are simulated live in your browser (RK4, dt = 1 ms). Source on{" "}
+        Computed in the browser with RK4, dt = 1 ms. Source code on{" "}
         <a href="https://github.com/max98physics/NaturalMotion">GitHub</a>.
       </footer>
     </div>

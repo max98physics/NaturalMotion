@@ -1,7 +1,7 @@
 # Natural Motion
 
-Interactive notes on a muscle-driven arm: equilibria, energy shaping, funnels and nonlinear normal modes.
-Every figure is simulated live in the browser (RK4, dt = 1 ms); nothing is precomputed.
+Simulations of an arm driven by two pneumatic muscles: equilibria, energy control, funnels and nonlinear normal modes.
+All figures are computed in the browser (RK4, dt = 1 ms).
 
 Live at [naturalmotion.maximiliankeim.dev](https://naturalmotion.maximiliankeim.dev).
 

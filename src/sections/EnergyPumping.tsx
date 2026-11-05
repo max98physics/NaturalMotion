@@ -122,8 +122,9 @@ export function EnergyPumping() {
 
   return (
     <section id="energy">
-      <p className="kicker">4 · Pumping energy</p>
-      <h2>Swinging by shifting the pressure difference</h2>
+      <h2>
+        <span className="num">4</span>Energy control
+      </h2>
       <div className="prose">
         <Placeholder
           points={[
@@ -161,8 +162,8 @@ export function EnergyPumping() {
           {run.failedAt !== null
             ? `Leaves the valid range after ${fmt(run.failedAt, 2)} s.`
             : isSettled
-              ? `Settles on a stable swing at E ≈ ${fmt(settled, 3)} J.`
-              : `Still changing after ${T} s (E ≈ ${fmt(settled, 3)} J).`}
+              ? `Settles at E ≈ ${fmt(settled, 3)} J.`
+              : `Not settled after ${T} s, E ≈ ${fmt(settled, 3)} J.`}
         </div>
         <div className="readouts">
           <Readout name="prediction E*" value={`${fmt(Estar, 3)} J`} />

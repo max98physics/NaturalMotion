@@ -38,7 +38,7 @@ export function Hero() {
       <div>
         <h1>Natural Motion</h1>
         <p className="tagline">
-          A muscle-driven arm, explored in the browser: where it can stand, how it swings, and how it can switch between motions.
+          Simulations of an arm driven by two antagonistic pneumatic muscles.
         </p>
         <Placeholder
           points={[
@@ -50,17 +50,17 @@ export function Hero() {
         />
         <nav className="toc">
           <a href="#model">Model</a>
-          <a href="#standing">Standing</a>
-          <a href="#map">Where it can stand</a>
-          <a href="#energy">Pumping energy</a>
+          <a href="#standing">Stability</a>
+          <a href="#map">Equilibrium map</a>
+          <a href="#energy">Energy control</a>
           <a href="#funnels">Funnels</a>
-          <a href="#modes">Modes</a>
+          <a href="#modes">Normal modes</a>
           <a href="#outlook">Outlook</a>
         </nav>
       </div>
       <div ref={wrap}>
         <canvas ref={ref} className="plot" role="img" aria-label="Animated arm swinging under energy control" />
-        <p className="caption">This arm is kept swinging by changing the pressure difference alone (section 5).</p>
+        <p className="caption">Driven by the energy controller from section 4; the pressure sum stays at 5 bar.</p>
       </div>
     </header>
   );

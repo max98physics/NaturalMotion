@@ -57,8 +57,9 @@ export function Outlook() {
 
   return (
     <section id="outlook">
-      <p className="kicker">7 · Outlook</p>
-      <h2>Switching between motions</h2>
+      <h2>
+        <span className="num">7</span>Outlook
+      </h2>
       <div className="prose">
         <Placeholder
           points={[
@@ -112,7 +113,7 @@ export function Outlook() {
           <Readout name="springs" value={`k₁ = k₂ = ${K} N m/rad`} />
           <Readout name="kick" value={`${KICK.torque} N m for ${KICK.duration} s`} />
         </div>
-        <p className="caption">Kick a joint and watch the trace leave the curve of its mode.</p>
+        <p className="caption">A kick is a short torque pulse on one joint. Afterwards the trajectory no longer follows a single curve.</p>
       </div>
     </section>
   );

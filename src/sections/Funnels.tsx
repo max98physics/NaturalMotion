@@ -148,12 +148,15 @@ export function Funnels() {
     );
   };
 
-  const eventText = run.events.map((e) => `switch to ${e.to} at ${fmt(e.t, 2)} s`).join(" · ");
+  const switches = run.events.map((e) => `${e.to} at ${fmt(e.t, 2)} s`).join(", then ");
+  const outcome = run.failedAt === null ? "stays in the valid range" : `leaves the valid range at ${fmt(run.failedAt, 2)} s`;
+  const statusText = switches ? `Switches to ${switches}; ${outcome}.` : `The arm ${outcome}.`;
 
   return (
     <section id="funnels">
-      <p className="kicker">5 · Funnels</p>
-      <h2>Switching postures safely</h2>
+      <h2>
+        <span className="num">5</span>Funnels
+      </h2>
       <div className="prose">
         <Placeholder
           points={[
@@ -188,7 +191,7 @@ export function Funnels() {
           />
           <label className="control-group" style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
             <input type="checkbox" checked={showBasin} onChange={(e) => setShowBasin(e.target.checked)} />
-            show true basin of B
+            simulated basin of B
           </label>
           <button className="action" onClick={() => (replay.current = 0)}>
             Replay
@@ -201,7 +204,7 @@ export function Funnels() {
               <LegendKey color={alpha(pal.s1, 0.4)} label="funnel A" />
               <LegendKey color={alpha(pal.s3, 0.4)} label="funnel C" />
               <LegendKey color={alpha(pal.s2, 0.4)} label="funnel B" />
-              {showBasin && <LegendKey kind="dash" color={pal.ink} label={basin ? "true basin of B (simulated)" : "computing basin …"} />}
+              {showBasin && <LegendKey kind="dash" color={pal.ink} label={basin ? "basin of B (simulated)" : "computing basin …"} />}
             </div>
           </div>
           <div>
@@ -209,8 +212,7 @@ export function Funnels() {
           </div>
         </div>
         <div className={`status ${run.failedAt === null ? "ok" : "fail"}`}>
-          {eventText}
-          {run.failedAt === null ? " · stays in the valid range" : ` · leaves the valid range at ${fmt(run.failedAt, 2)} s`}
+          {statusText}
         </div>
         <div className="prepares">
           {edge("A", "B")}

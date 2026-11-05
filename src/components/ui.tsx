@@ -1,5 +1,6 @@
 import katex from "katex";
 import { useMemo, type ReactNode } from "react";
+import { useTheme } from "../lib/theme";
 
 export function Slider(props: {
   label: ReactNode;
@@ -44,6 +45,19 @@ export function Segmented<T extends string | number>(props: {
           </button>
         ))}
       </div>
+    </div>
+  );
+}
+
+export function ThemeToggle() {
+  const [theme, setTheme] = useTheme();
+  return (
+    <div className="segmented" role="radiogroup" aria-label="Color theme">
+      {(["light", "dark"] as const).map((t) => (
+        <button key={t} role="radio" aria-checked={t === theme} className={t === theme ? "active" : ""} onClick={() => setTheme(t)}>
+          {t === "light" ? "White" : "Black"}
+        </button>
+      ))}
     </div>
   );
 }

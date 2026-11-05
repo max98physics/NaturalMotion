@@ -115,15 +115,16 @@ export function EquilibriumMap({ pressures, setPressures }: { pressures: Pressur
   };
 
   const regionText = {
-    stable: `stands at θ* = ${fmt(standing.theta ?? NaN, 3)} rad`,
-    onlyUnstable: "only unstable equilibria in range: the arm falls",
-    none: "no equilibrium in range: the pressure difference tips it over",
+    stable: `Stable at θ* = ${fmt(standing.theta ?? NaN, 3)} rad.`,
+    onlyUnstable: "Only unstable equilibria in the valid range.",
+    none: "No equilibrium in the valid range.",
   }[standing.region];
 
   return (
     <section id="map">
-      <p className="kicker">3 · Where it can stand</p>
-      <h2>The equilibrium map</h2>
+      <h2>
+        <span className="num">3</span>Equilibrium map
+      </h2>
       <div className="prose">
         <Placeholder
           points={[
@@ -159,7 +160,6 @@ export function EquilibriumMap({ pressures, setPressures }: { pressures: Pressur
               <div
                 style={{
                   height: 12,
-                  borderRadius: 3,
                   background: `linear-gradient(to right, ${pal.divNeg}, ${pal.divMid}, ${pal.divPos})`,
                 }}
               />
@@ -187,7 +187,7 @@ export function EquilibriumMap({ pressures, setPressures }: { pressures: Pressur
               <Readout name="minimum sum" value={`${fmt(minPressureSum(P), 3)} bar`} />
             </div>
             <div className={`status ${standing.region === "stable" ? "ok" : "fail"}`}>{regionText}</div>
-            <p className="caption">Click or drag in the map to choose the pressures; sections 1 and 2 follow.</p>
+            <p className="caption">Click or drag to set p₁ and p₂. Sections 1 and 2 use the same pressures.</p>
           </div>
         </div>
       </div>

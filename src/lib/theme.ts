@@ -44,15 +44,46 @@ function readPalette(): Palette {
   };
 }
 
-/** Chart colors from the CSS tokens; updates when the OS theme changes. */
+export type Theme = "light" | "dark";
+
+/** The chosen theme (data-theme on <html>), else the OS setting. */
+function currentTheme(): Theme {
+  const t = document.documentElement.dataset.theme;
+  if (t === "light" || t === "dark") return t;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+/** Calls back when the OS theme or the chosen theme changes; returns the unsubscribe. */
+function onThemeChange(update: () => void) {
+  const mq = window.matchMedia("(prefers-color-scheme: dark)");
+  const observer = new MutationObserver(update);
+  mq.addEventListener("change", update);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  return () => {
+    mq.removeEventListener("change", update);
+    observer.disconnect();
+  };
+}
+
+/** Current theme and a setter that overrides the OS setting and remembers the choice. */
+export function useTheme(): [Theme, (t: Theme) => void] {
+  const [theme, setTheme] = useState(currentTheme);
+  useEffect(() => onThemeChange(() => setTheme(currentTheme())), []);
+  const choose = (t: Theme) => {
+    document.documentElement.dataset.theme = t;
+    try {
+      localStorage.setItem("theme", t);
+    } catch {
+      // storage blocked: the choice lasts until reload
+    }
+  };
+  return [theme, choose];
+}
+
+/** Chart colors from the CSS tokens; updates when the theme changes. */
 export function usePalette(): Palette {
   const [palette, setPalette] = useState(readPalette);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const update = () => setPalette(readPalette());
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
+  useEffect(() => onThemeChange(() => setPalette(readPalette())), []);
   return palette;
 }
 

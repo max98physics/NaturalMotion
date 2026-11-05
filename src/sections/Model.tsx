@@ -70,8 +70,9 @@ export function Model({ pressures, setPressures }: { pressures: Pressures; setPr
 
   return (
     <section id="model">
-      <p className="kicker">1 · Model</p>
-      <h2>An arm on two muscles</h2>
+      <h2>
+        <span className="num">1</span>Model
+      </h2>
       <div className="prose">
         <Placeholder
           points={[
@@ -101,12 +102,13 @@ export function Model({ pressures, setPressures }: { pressures: Pressures; setPr
               <LegendKey kind="line" color={pal.s1} label="gravity m g l sin θ" />
               <LegendKey kind="line" color={pal.s2} label="muscle spring K (θ − θ₀)" />
               <LegendKey color={pal.invalid} label="outside valid range" />
-              <span className="key">● stable · ○ unstable equilibrium</span>
+              <span className="key">● stable</span>
+              <span className="key">○ unstable</span>
             </div>
           </div>
           <div>
             <canvas ref={arm.ref} className="plot" role="img" aria-label="Arm at its equilibrium" />
-            <p className="caption">Arm at its equilibrium; dashed: rest angle θ₀ of the muscles.</p>
+            <p className="caption">Arm at θ*, dashed line at the rest angle θ₀.</p>
           </div>
         </div>
         <div className="readouts">
@@ -116,7 +118,7 @@ export function Model({ pressures, setPressures }: { pressures: Pressures; setPr
           <Readout name="contraction ε₁ / ε₂" value={`${fmt(e1, 3)} / ${fmt(e2, 3)}`} />
         </div>
         <p className="caption">
-          Equilibria are where the two curves cross. The arm stands where the muscle spring is steeper than gravity.
+          Equilibria lie at the intersections. They are stable where the muscle curve is steeper than the gravity curve.
         </p>
       </div>
     </section>
